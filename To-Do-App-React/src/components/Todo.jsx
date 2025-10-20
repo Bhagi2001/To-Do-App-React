@@ -4,7 +4,7 @@ import TodoItems from './TodoItems'
 
 const Todo = () => {
 
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(localStorage.getItem("todos")? JSON.parse(localStorage.getItem("todos")) : []);
 
   const inputRef = useRef();
 
@@ -33,7 +33,7 @@ const Todo = () => {
 
   const toggle = (id) => {
     setTodoList((prvTodos)=>{
-      return prvTod.map((todo) =>{
+      return prvTodos.map((todo) =>{
         if(todo.id === id){
           return {...todo, isComplete: !todo.isComplete}
         }
@@ -43,9 +43,9 @@ const Todo = () => {
   }
 
   useEffect(()=>{
-    console.log(todoList);
+    localStorage.setItem("todos", JSON.stringify(todoList));
   }, [todoList])
-  
+
   return (
     <>
     <div className="backdrop-blur-2xl shadow-md bg-slate-500/30 place-self-center w-11/12 flex flex-col max-w-md p-7 min-h-[550px] rounded-xl">
