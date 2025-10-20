@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import calendar from '../assets/calendar.png'
 import TodoItems from './TodoItems'
 
@@ -23,9 +23,29 @@ const Todo = () => {
     setTodoList((prev) => [...prev, newTodo]);
     inputRef.current.value = "";
 
-
-
   }
+
+  const deleteTodo = (id) => {
+    setTodoList((prvTodos)=>{
+      return prvTodos.filter((todo) => todo.id !== id)
+    })
+  }
+
+  const toggle = (id) => {
+    setTodoList((prvTodos)=>{
+      return prvTod.map((todo) =>{
+        if(todo.id === id){
+          return {...todo, isComplete: !todo.isComplete}
+        }
+        return todo;
+      })
+    })
+  }
+
+  useEffect(()=>{
+    console.log(todoList);
+  }, [todoList])
+  
   return (
     <>
     <div className="backdrop-blur-2xl shadow-md bg-slate-500/30 place-self-center w-11/12 flex flex-col max-w-md p-7 min-h-[550px] rounded-xl">
@@ -55,11 +75,12 @@ const Todo = () => {
     <div>
       {todoList.map((item, index) => {
         return (
-          <TodoItems key={index} text={item.text}/>
+          <TodoItems key={index} text={item.text} id={item.id}
+          isComplete={item.isComplete} deleteTodo={deleteTodo} toggle={toggle}/>
         )
 
       })}
-      
+
     </div>
 
 
