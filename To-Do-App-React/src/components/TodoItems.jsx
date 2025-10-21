@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 
 const TodoItems = ({text, id, isComplete, deleteTodo, toggle}) => {
+  const currentTime = new Date().toLocaleTimeString();
   return (
     <>
     <div className="flex items-center gap-2 my-3">
@@ -13,7 +14,10 @@ const TodoItems = ({text, id, isComplete, deleteTodo, toggle}) => {
             <img className='w-7' src={isComplete ? check : recordButton} alt="" />
             <p className={`text-slate-200 ml-4 text[17px] decoration-slate-900 ${isComplete ? "line-through text-slate-400" : ""}`}>
                 {text}
+                {text}  
             </p>
+            <span className="ml-2 text-xs text-gray-500">({currentTime})</span>
+           
         </div>
 
         <img onClick={()=>{deleteTodo(id)}} className='w-5' src={trash} alt="" />
